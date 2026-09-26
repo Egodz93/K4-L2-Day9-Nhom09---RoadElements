@@ -1,0 +1,13 @@
+sample_id,label,measure,hiep-calibration,than-calibration,agree
+GTS02,area/alternative,count,1,0,0
+GTS02,area/drivable,count,1,1,1
+GTS05,area/alternative,count,0,0,1
+GTS05,area/drivable,count,1,1,1
+GTS20,area/alternative,count,1,0,0
+GTS20,area/drivable,count,1,1,1
+GTS22,area/alternative,count,1,1,1
+GTS22,area/drivable,count,1,1,1
+GTS25,area/alternative,count,2,3,0
+GTS25,area/drivable,count,1,1,1
+GTS26,area/alternative,count,0,0,1
+GTS26,area/drivable,count,2,1,0

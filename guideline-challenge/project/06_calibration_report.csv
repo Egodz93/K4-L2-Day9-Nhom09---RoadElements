@@ -1,1 +1,5 @@
 sample_id,item,values_by_annotator,diagnosis,action,rule_change
+GTS02,area/alternative count,hiep=1; than=0,guideline_gap,add_escalation,"Ở nút giao, nếu không gán được biển hoặc mũi tên cho làn xe chủ thể thì chỉ vẽ phần làn gần xe chắc chắn, không tạo area/alternative và tạo issue"
+GTS20,area/alternative count,hiep=1; than=0,guideline_gap,revise_rule,"Quanh đảo, chỉ gán area/alternative khi có đoạn nối trực tiếp từ area/drivable trước bó vỉa, vạch liền hoặc vùng gạch chéo"
+GTS25,area/alternative count,hiep=2; than=3,guideline_gap,revise_rule,"Mỗi area/alternative phải có đoạn chuyển làn nhìn thấy; nhánh chỉ gặp tại vùng gạch chéo hoặc sau vạch liền thì bỏ qua"
+GTS26,area/drivable count,hiep=2; than=1,execution_error,coaching,"Nhắc lại: với xe ngược chiều che nửa trái, chỉ vẽ phần bên phải chắc chắn; không tạo polygon drivable bên trái xe"

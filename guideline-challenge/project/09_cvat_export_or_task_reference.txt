@@ -2,7 +2,7 @@ CVAT task reference
 
 CVAT version: 2.75.1
 Task calibration (tên, id): nhom09-drivable-calib-v1; chưa tạo nên chưa có id
-Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: Chưa có; guideline hiện ở v1 và chưa calibration
+Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: Chưa có; guideline hiện ở v2 sau calibration, chưa handoff
 File export đã nộp (đường dẫn trong repo): Chưa có; chưa chạy task calibration
-Guideline version dán trong Guide của task: v1 sau khi task được tạo
+Guideline version dán trong Guide của task: v2 cho task tiếp theo hoặc khi cập nhật Guide
 Ghi chú cho người tiếp nhận: Dùng Shape + Polygon; chỉ có area/drivable và area/alternative; không có thuộc tính

@@ -1,6 +1,6 @@
-# Annotation guideline — TODO tên bài toán
+# Annotation guideline — Drivable area
 
-**Version:** v1
+**Version:** v2
 
 ## 1. Objective + scope
 
@@ -87,6 +87,8 @@ Nếu các dấu hiệu mâu thuẫn, ưu tiên ranh giới vật lý. Màu sắ
   }
 ]
 ```
+### `area/drivable` — vùng đi chính
+
 Là vùng của làn chứa vị trí xe chủ thể ở giữa mép dưới ảnh và phần nối hợp lệ của chính làn đó theo hướng chạy.
 Đây là đường đi mặc định không cần đổi làn. Nếu mũi tên hoặc biển trong ảnh bắt buộc rẽ, phần nối theo hướng bắt buộc
 đó vẫn là `area/drivable`.
@@ -105,6 +107,9 @@ Là vùng không thuộc làn hiện tại nhưng xe chủ thể có thể tới
 Không gán `area/alternative` chỉ vì một vùng trông giống mặt đường. Phải có đủ ba bằng chứng: cùng mạng đường với xe
 chủ thể, đúng hướng lưu thông và có đoạn chuyển làn hoặc phần kết nối quan sát được. Nếu thiếu một trong ba bằng chứng,
 không gán nhãn cho phần chưa chắc chắn và chuyển trường hợp đó cho người phụ trách xử lý.
+
+Ở nút giao hoặc quanh đảo, một nhánh chỉ là `area/alternative` khi có đoạn nối trực tiếp từ `area/drivable` trước bó
+vỉa, vạch liền hoặc vùng gạch chéo. Chỉ nhìn thấy nhánh nằm cạnh hay nối sau đảo là chưa đủ.
 
 Nếu CVAT không hiển thị đúng hai nhãn trên, dừng gán nhãn và báo người
 
@@ -132,15 +137,18 @@ Nếu CVAT không hiển thị đúng hai nhãn trên, dừng gán nhãn và bá
 
 **Đường hai chiều không có vạch giữa:** chỉ gán nhãn nửa đường bên phải dành cho xe chủ thể. Ước lượng tim đường từ
 hai mép đường, hướng xe và phối cảnh. Nếu không thể xác định đáng tin cậy, chỉ vẽ phần chắc chắn và ghi vấn đề trong
-CVAT.
+CVAT. Khi xe ngược chiều che phần bên trái như `GTS26`, không tạo thêm `area/drivable` ở bên trái xe; chỉ giữ phần
+bên phải còn nhìn thấy chắc chắn.
 **Nút giao:** tiếp tục `area/drivable` theo làn hiện tại. Nếu làn có mũi tên bắt buộc thì đi theo mũi tên. Nếu không
 có mũi tên và đường thẳng tiếp tục rõ thì dùng hướng thẳng làm mặc định. Các làn rẽ hoặc phần nối khác chỉ là
 `area/alternative` khi kết nối và quyền đi được chứng minh trong ảnh. Không tô toàn bộ lòng nút giao. Đảo, dải phân
-cách và phần ngoài các đường nối bị loại. Vạch qua đường không tạo lỗ.
+cách và phần ngoài các đường nối bị loại. Vạch qua đường không tạo lỗ. Nếu không gán được biển hoặc mũi tên cho làn
+xe chủ thể, chỉ vẽ phần làn gần xe chắc chắn rồi tạo issue; không tự tạo `area/alternative`.
 
 **Nhập hoặc tách làn:** bám theo vạch phân làn và vùng gạch chéo. Nhánh chứa hình chiếu từ giữa mép dưới ảnh là
 `area/drivable`. Nhánh bên chỉ là `area/alternative` tại phần xe còn có thể nhập hợp pháp. Sau khi vạch liền hoặc vùng
-gạch chéo bắt đầu, không nối đa giác xuyên qua vùng cấm.
+gạch chéo bắt đầu, không nối đa giác xuyên qua vùng cấm. Mỗi polygon `area/alternative` phải có chính đoạn chuyển làn
+nhìn thấy; nhánh chỉ gặp tại vùng gạch chéo hoặc sau vạch liền thì bỏ qua.
 
 **Vạch tạm và công trường:** trong cảnh như `GTS07`, vạch màu vàng đang dẫn hướng và rào chắn nhìn thấy được ưu tiên
 hơn vạch cũ. Không suy đoán làn đóng hoặc đường vòng ngoài phần thể hiện rõ trong ảnh.
