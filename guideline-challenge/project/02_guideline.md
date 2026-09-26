@@ -14,11 +14,36 @@ Ví dụ trong guideline chỉ dùng ảnh split example hoặc calibration, kh�
 
 ## 1. Objective + scope
 
-TODO — label để làm gì; object/region nào trong scope, cái nào ngoài scope.
+**Mục tiêu:** Label vùng đường mà xe có thể di chuyển được (**drivable area**) trong ảnh giao thông đường bộ,
+phục vụ huấn luyện model nhận diện không gian lái xe tự động.
+
+**Trong scope — bắt buộc label:**
+- Làn đường chính xe đang đi (ego lane)
+- Các làn đường khác cùng chiều hoặc ngược chiều còn nhìn thấy rõ mặt đường
+- Vùng giao lộ (intersection) mà xe có thể đi vào
+- Đường phụ, ngõ, lề đường trải nhựa / bê-tông mà ô tô có thể đi qua
+
+**Ngoài scope — không label (ignore):**
+- Vỉa hè, lề đất, dải phân cách cứng, bồn hoa, vỉa hè bê-tông dành cho người đi bộ
+- Vùng mặt đường bị che khuất hoàn toàn bởi xe khác, công trình, hay vật cản
+- Bầu trời, toà nhà, cây cối, biển báo, đèn tín hiệu
+- Vùng đường quá xa / quá nhỏ không xác định được biên rõ ràng
 
 ## 2. Annotation unit
 
-TODO — image, frame hay track? Instance hay region? Khi nào một object được tính là instance mới?
+- **Loại task:** Ảnh tĩnh (image-level) — không track, không frame sequence
+- **Đơn vị:** Region (vùng) — mỗi vùng đường liền thông, không bị cắt đứt bởi vật cản cứng, là **một instance riêng**
+- **Geometry:** Polygon (vẽ kín vùng drivable area)
+
+**Khi nào tạo instance mới:**
+
+| Tình huống | Xử lý |
+|---|---|
+| Các làn đường liền nhau, không có dải phân cách cứng | **Một** polygon bao toàn bộ |
+| Hai làn bị tách bởi dải phân cách cứng / bồn hoa | **Hai** polygon riêng biệt |
+| Đường chính + giao lộ liền thông nhau | **Một** polygon gộp chung |
+| Đường rẽ phụ tách ra, không liền vùng chính | **Một** polygon riêng cho đường rẽ |
+
 
 ## 3. Geometry rule
 
