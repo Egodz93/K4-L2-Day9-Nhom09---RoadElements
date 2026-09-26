@@ -2,7 +2,9 @@ CVAT task reference
 
 CVAT version: 2.75.1
 Task calibration (tên, id): nhom09-drivable-calib-v1; chưa tạo nên chưa có id
-Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: Chưa có; guideline hiện ở v2 sau calibration, chưa handoff
-File export đã nộp (đường dẫn trong repo): Chưa có; chưa chạy task calibration
-Guideline version dán trong Guide của task: v2 cho task tiếp theo hoặc khi cập nhật Guide
-Ghi chú cho người tiếp nhận: Dùng Shape + Polygon; chỉ có area/drivable và area/alternative; không có thuộc tính
+Task blind handoff (tên, id): nhom09-drivable-blind-v1; job id = 7 (theo annotations.xml)
+Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: Chưa có task v3; cần tạo task mới sau khi guideline v3 được dán vào Guide
+File export đã nộp (đường dẫn trong repo): guideline-challenge/blind-pack/blind-pack/annotations.xml (export CVAT Annotation 1.1 XML, job 7, dump 2026-09-26T11:58:57Z)
+Guideline version dán trong Guide của task: v3 cho task tiếp theo — cần cập nhật sau khi tạo task mới
+Ghi chú cho người tiếp nhận: Dùng Shape + Polygon; chỉ có area/drivable và area/alternative; không có thuộc tính. v3 bổ sung: (1) tách polygon tại đảo giao thông, (2) biên trái ≤ tim đường ±5% cho đường hai chiều không vạch, (3) cắt polygon tại mép xe che khuất. Xem 04_edge_cases/edge_case_cards.md EC10-EC16 và examples GTS11/GTS28 trong mục 9 guideline.
+Gold dispute cần báo cáo: GTS11-d1 — polygon bao cả hai bên đảo (x≈54→1144/1360) nhưng gold đã khóa correct=1; cần reviewer xem xét lại gold decision trong lần review tiếp.

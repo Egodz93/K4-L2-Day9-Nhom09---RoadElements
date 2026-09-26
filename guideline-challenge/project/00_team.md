@@ -3,8 +3,8 @@
 Điền trước phút 15. Thay mọi placeholder; còn sót thì `make status` báo ở gate G1.
 
 - **Team:** Nhom09 (ví dụ `team07`)
-- **Nhóm peer test bài của mình:** TODO (cặp A ↔ B; số nhóm lẻ thì ring 3 nhóm A → B → C → A — Lab Coach công bố)
-- **Nhóm mình test bài của:** TODO
+- **Nhóm peer test bài của mình:** Thunderbolt 
+- **Nhóm mình test bài của:** Thunderbolt
 - **Problem family:** Drivable area (xem README mục "1 · Chọn bài toán")
 - **Nguồn ảnh:** `gtsdb` (`bdd100k`, `gtsdb`, `lisa` — chỉ dùng ảnh trong `data/`)
 

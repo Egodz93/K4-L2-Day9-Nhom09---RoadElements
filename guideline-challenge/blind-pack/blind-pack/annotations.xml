@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotations>
+  <version>1.1</version>
+  <meta>
+    <job>
+      <id>7</id>
+      <size>5</size>
+      <mode>annotation</mode>
+      <overlap>0</overlap>
+      <bugtracker></bugtracker>
+      <created>2026-09-26 11:27:14.664262+00:00</created>
+      <updated>2026-09-26 11:57:58.029686+00:00</updated>
+      <subset>default</subset>
+      <start_frame>0</start_frame>
+      <stop_frame>4</stop_frame>
+      <frame_filter></frame_filter>
+      <segments>
+        <segment>
+          <id>7</id>
+          <start>0</start>
+          <stop>4</stop>
+          <url>http://localhost:8080/api/jobs/7/dataset/export/api/jobs/7</url>
+        </segment>
+      </segments>
+      <owner>
+        <username>26ai.thinhnv</username>
+        <email>26ai.thinhnv@vinuni.edu.vn</email>
+      </owner>
+      <assignee></assignee>
+      <labels>
+        <label>
+          <name>area/alternative</name>
+          <color>#62c4b2</color>
+          <type>polygon</type>
+          <attributes>
+          </attributes>
+        </label>
+        <label>
+          <name>area/drivable</name>
+          <color>#4a3d3c</color>
+          <type>polygon</type>
+          <attributes>
+          </attributes>
+        </label>
+      </labels>
+    </job>
+    <dumped>2026-09-26 11:58:57.597576+00:00</dumped>
+  </meta>
+  <image id="0" name="GTS01.png" width="1360" height="800">
+    <polygon label="area/alternative" source="manual" occluded="0" points="190.18,800.00;472.94,637.54;562.17,586.99;604.94,558.32;614.65,550.61;621.97,539.52;623.20,526.30;584.60,529.10;550.70,548.00;500.60,561.17;301.90,610.50;137.49,643.93;0.00,679.80;0.00,717.90;0.00,800.00;189.45,800.00" z_order="0">
+    </polygon>
+    <polygon label="area/drivable" source="manual" occluded="0" points="231.15,796.88;572.57,589.57;622.79,547.80;627.00,527.30;657.25,525.84;692.61,544.42;737.99,576.29;1000.47,734.50;1080.31,784.95;1034.93,793.39" z_order="0">
+    </polygon>
+  </image>
+  <image id="1" name="GTS08.png" width="1360" height="800">
+    <polygon label="area/alternative" source="manual" occluded="0" points="391.50,800.00;560.83,678.71;586.87,660.86;545.09,663.58;543.87,629.34;477.70,644.60;350.50,674.60;229.90,701.80;27.50,745.20;21.80,799.00" z_order="0">
+    </polygon>
+    <polygon label="area/drivable" source="manual" occluded="0" points="1042.30,800.00;795.70,668.10;706.70,619.50;682.30,609.30;649.60,611.00;638.10,629.50;635.10,659.80;591.80,664.40;421.00,800.00;761.82,800.00" z_order="0">
+    </polygon>
+  </image>
+  <image id="2" name="GTS11.png" width="1360" height="800">
+    <polygon label="area/drivable" source="manual" occluded="0" points="54.79,799.22;338.49,655.18;483.11,592.70;533.43,571.39;560.39,541.90;529.54,540.05;552.80,524.50;569.20,524.60;569.15,550.07;651.90,547.10;654.50,520.80;679.40,537.90;710.00,555.90;837.80,628.50;984.72,710.07;1144.33,799.61;642.30,800.00" z_order="0">
+    </polygon>
+  </image>
+  <image id="3" name="GTS21.png" width="1360" height="800">
+    <polygon label="area/drivable" source="manual" occluded="0" points="3.98,729.01;331.12,633.04;446.21,604.25;432.30,593.20;544.20,574.67;547.48,599.38;650.13,594.51;653.00,554.40;696.80,552.71;670.70,572.27;662.56,592.33;638.71,665.47;636.10,705.89;680.70,743.80;909.60,799.70;0.00,800.00" z_order="0">
+    </polygon>
+  </image>
+  <image id="4" name="GTS28.png" width="1360" height="800">
+    <polygon label="area/drivable" source="manual" occluded="0" points="154.84,797.37;410.80,677.37;406.60,660.10;623.07,577.03;727.01,529.05;769.40,506.40;799.50,519.30;839.80,537.10;969.90,598.80;1096.84,659.56;1250.61,741.02;1358.60,791.90;1358.00,800.00;495.00,800.00" z_order="0">
+    </polygon>
+  </image>
+</annotations>

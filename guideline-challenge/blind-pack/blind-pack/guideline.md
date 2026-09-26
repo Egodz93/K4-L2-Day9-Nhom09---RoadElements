@@ -1,6 +1,6 @@
 # Annotation guideline — Drivable area
 
-**Version:** v3
+**Version:** v2
 
 ## 1. Objective + scope
 
@@ -64,21 +64,6 @@ Nếu các dấu hiệu mâu thuẫn, ưu tiên ranh giới vật lý. Màu sắ
 - Với xe đang chạy hoặc người đi bộ, không gán nhãn lên phần ảnh của đối tượng và không suy diễn mặt đường bị che
   bên dưới. Mặt đường nhìn thấy trước hoặc sau đối tượng có thể là đa giác riêng nếu vẫn xác định chắc chắn được biên.
 - Bóng cây, phản chiếu và vạch sơn không phải vật cản; vẫn gán nhãn nếu ranh giới mặt đường còn rõ.
-
-**Tách đa giác tại đảo giao thông (bổ sung v3):** Khi ảnh có đảo giao thông, dải phân cách nổi hoặc bất kỳ ranh
-giới vật lý nào chia đường thành hai luồng riêng biệt, **bắt buộc** dùng đa giác riêng cho từng làn — không được
-vẽ một đa giác bao qua đảo. Cụ thể:
-
-1. Xác định làn xe chủ thể (làn chứa điểm giữa mép dưới ảnh).
-2. Khép đa giác `area/drivable` tại mép bó vỉa/rào chắn của đảo phía gần làn đó.
-3. Không nối sang phần đường phía kia đảo dù bề mặt trông liên tục.
-4. Nếu làn phía kia đảo đủ điều kiện `area/alternative` (kết nối hợp lệ, cùng chiều), tạo đa giác riêng cho nó
-   và khép tại mép đảo phía đó.
-
-**Cắt polygon tại mép xe che khuất (bổ sung v3):** Khi xe đang chạy che một phần mặt đường, khép đa giác tại
-mép ngoài cùng nhìn thấy của xe; không vẽ dưới xe. Nếu mặt đường phía sau xe vẫn xác định được biên rõ ràng,
-tạo thêm đa giác thứ hai cho phần đó. Không nối hai đa giác xuyên qua thân xe.
-
 
 ## 4. Taxonomy
 
@@ -150,19 +135,10 @@ Nếu CVAT không hiển thị đúng hai nhãn trên, dừng gán nhãn và bá
 
 ### 5.3 Tình huống đặc biệt
 
-### 5.3 Tình huống đặc biệt
-
-**Đường hai chiều không có vạch giữa:** chỉ gán nhãn nửa đường bên phải dành cho xe chủ thể. Định nghĩa **"bảo thủ"
-(bổ sung v3)**: biên trái của `area/drivable` không được vượt quá tim đường ước tính. Tim đường được xác định bằng
-trung điểm chiều ngang giữa hai mép nhựa đường nhìn thấy ở phần gần xe chủ thể nhất. Nếu một mép bị xe ngược chiều
-hoặc vật cản che, dùng hướng phối cảnh và bề rộng làn ước tính để suy ra tim đường. Sai số cho phép: ±5% chiều rộng
-tổng. Nếu không xác định được tim đường trong sai số này, chỉ vẽ phần chắc chắn bên phải và tạo issue trong CVAT.
-Không tạo `area/alternative` trên đường hai chiều không vạch.
-
-**Đảo giao thông (bổ sung v3 — xem thêm mục 3.3):** Đảo là ranh giới vật lý cứng. Bắt buộc dùng đa giác riêng
-cho mỗi làn bị đảo chia cắt. Không nối hai phần đường hai bên đảo thành một polygon. Đảo, bó vỉa và vùng đất
-trên đảo thuộc danh mục "Không gán nhãn". Chỉ vẽ phần mặt đường nhìn thấy ở bên cùng làn xe chủ thể.
-
+**Đường hai chiều không có vạch giữa:** chỉ gán nhãn nửa đường bên phải dành cho xe chủ thể. Ước lượng tim đường từ
+hai mép đường, hướng xe và phối cảnh. Nếu không thể xác định đáng tin cậy, chỉ vẽ phần chắc chắn và ghi vấn đề trong
+CVAT. Khi xe ngược chiều che phần bên trái như `GTS26`, không tạo thêm `area/drivable` ở bên trái xe; chỉ giữ phần
+bên phải còn nhìn thấy chắc chắn.
 **Nút giao:** tiếp tục `area/drivable` theo làn hiện tại. Nếu làn có mũi tên bắt buộc thì đi theo mũi tên. Nếu không
 có mũi tên và đường thẳng tiếp tục rõ thì dùng hướng thẳng làm mặc định. Các làn rẽ hoặc phần nối khác chỉ là
 `area/alternative` khi kết nối và quyền đi được chứng minh trong ảnh. Không tô toàn bộ lòng nút giao. Đảo, dải phân
@@ -179,8 +155,6 @@ hơn vạch cũ. Không suy đoán làn đóng hoặc đường vòng ngoài ph�
 
 **Đường ray trên mặt đường:** trong cảnh như `GTS24`, không loại một vùng chỉ vì có đường ray. Nếu đường ray nằm trong
 phần mặt đường ô tô đang lưu thông và liên tục với làn xe chủ thể, gán nhãn theo quy tắc làn hiện tại/làn kế bên. Phần không có bằng chứng cho ô tô lưu thông thì không gán nhãn.
-
-
 
 
 ## 6. Visibility / occlusion
@@ -227,8 +201,6 @@ lý độc lập.
 | `GTS04` — `example`, positive | Cao tốc có nhiều làn cùng chiều, dải phân cách và hộ lan rõ | Vẽ `area/drivable` cho làn chứa xe chủ thể. Vẽ `area/alternative` cho từng làn cùng chiều mà xe có thể chuyển sang qua vạch đứt. Không gán nhãn phần đường đối diện sau dải phân cách, hộ lan và lề dừng. Các đa giác không chồng lấn. | Làn hiện tại là vùng đi chính. Làn cùng chiều có thể chuyển sang là vùng thay thế. Ranh giới vật lý là vùng loại trừ. |
 | `GTS17` — `example`, negative | Lối vào có biển cấm đi ngược chiều, bên trong có khu đỗ xe và người đi bộ | Chỉ vẽ `area/drivable` trên phần làn hiện tại nhìn thấy ở mép dưới ảnh. Không gán nhãn lối vào sau biển cấm, vỉa hè, khu đỗ xe, xe và người. Không tạo `area/alternative` chỉ vì bề mặt có thể chạy được. | Chỉ gán vùng xe được phép đi. Biển cấm, vỉa hè, bãi đỗ và vật cản là vùng loại trừ. |
 | `GTS26` — `calibration`, edge case | Đường hẹp không có vạch giữa, mặt đường bị chói sáng và có xe ngược chiều | Vẽ bảo thủ `area/drivable` cho phần nửa phải nhìn thấy chắc chắn. Dừng đa giác nơi đường biên không còn rõ. Không gán nhãn nửa đường của xe ngược chiều, xe và lề cỏ. Không tạo `area/alternative`. Nếu không xác định được tim đường trong dung sai, ghi vấn đề trong CVAT trước khi xuất kết quả. | Chỉ vẽ vùng quan sát chắc chắn. Không suy đoán qua vùng chói. Loại làn ngược chiều và vật cản. |
-| `GTS11` — `blind`, edge case / critical | Đường đô thị có đảo nhỏ, biển yêu cầu đi bên phải đảo, nhiều xe đỗ che mặt đường | Vẽ **một** `area/drivable` chỉ cho làn bên phải đảo, khép đa giác tại mép bó vỉa đảo. Khép thêm tại mép xe đỗ che khuất — không vẽ dưới xe. Bỏ đảo, làn ngược chiều và vỉa hè. Không tạo polygon xuyên qua đảo. | Mục 3.3 v3: tách polygon tại đảo; mục 3.3 v3: cắt tại mép xe. Lỗi thường gặp: tô xuyên đảo hoặc vẽ dưới xe. |
-| `GTS28` — `blind`, edge case / critical | Đường hẹp hai chiều không có vạch giữa, xe ngược chiều ở mép trái, xe đỗ ở mép phải | Vẽ bảo thủ `area/drivable` không vượt tim đường ước tính (trung điểm hai mép nhựa, sai số ±5% chiều rộng). Không tạo `area/alternative`. Bỏ cả hai xe, vỉa hè và lối đỗ. | Mục 5.3 v3: định nghĩa "bảo thủ" định lượng. Lỗi thường gặp: dùng mép nhựa hai bên làm biên của một polygon. |
 
 ## 10. Common mistakes
 
@@ -244,8 +216,6 @@ lý độc lập.
 8. Dừng đa giác ở vạch qua đường, vạch dừng hoặc đèn đỏ như thể đó là biên không thể đi.
 9. Tự tạo nhãn hoặc thuộc tính ngoài hai nhãn được quy định.
 10. Tự đoán trường hợp mơ hồ mà không ghi vấn đề để người phụ trách xử lý.
-11. **(v3) Vẽ một polygon duy nhất bao qua đảo giao thông** thay vì tách riêng cho mỗi làn — dẫn đến đường đi xuyên đảo.
-12. **(v3) Dùng mép nhựa hai bên làm biên của `area/drivable` trên đường hai chiều không vạch** — biên trái phải dừng tại tim đường ước tính.
 
 ### Danh sách tự kiểm tra trước khi hoàn thành ảnh
 

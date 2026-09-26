@@ -145,3 +145,49 @@ Common mistake: Dùng mép nhựa hai bên làm biên của một polygon duy nh
 Diversity: ambiguity / occlusion / critical
 
 ---
+
+CASE ID: EC13
+Sample: GTS11
+Scene: Đường đô thị có đảo nhỏ, biển yêu cầu đi bên phải đảo.
+Observation: Nhiều xe đỗ che mặt đường bên phải đảo; làn trái đảo nhìn thấy nhưng xe không được phép đi.
+Decision: LABEL / IGNORE
+Expected: Vẽ một `area/drivable` chỉ cho làn bên phải đảo. Khép polygon tại mép bó vỉa đảo — không nối sang phần đường bên trái đảo. Khép thêm tại mép ngoài xe đỗ, không vẽ dưới xe. Bỏ toàn bộ đảo, làn ngược chiều, vỉa hè và xe.
+Rationale: Đảo là ranh giới vật lý cứng. Vẽ polygon xuyên đảo tạo quỹ đạo đi ngược chiều hoặc lên đảo — lỗi critical trong downstream.
+Common mistake: Vẽ một polygon duy nhất bao cả hai bên đảo. Vẽ phủ lên xe đỗ hoặc nối mặt đường dưới xe.
+Diversity: occlusion / conflict / critical / escalation
+
+---
+
+CASE ID: EC14
+Sample: GTS11
+Scene: Xe đang chạy che một phần mặt đường, còn mặt đường phía sau xe vẫn nhìn thấy một phần.
+Observation: Polygon bao xuyên qua thân xe thay vì khép tại mép xe.
+Decision: LABEL
+Expected: Khép polygon `area/drivable` tại mép ngoài cùng của xe. Nếu mặt đường phía sau xe còn xác định được biên rõ ràng, tạo đa giác thứ hai riêng cho phần đó. Hai polygon không được nối qua thân xe.
+Rationale: Vẽ dưới xe suy diễn mặt đường không quan sát được — vi phạm nguyên tắc chỉ label phần nhìn thấy; downstream nhận được đường đi không thực tế.
+Common mistake: Bỏ qua xe hoàn toàn và kéo polygon liên tục dưới/qua xe.
+Diversity: occlusion / geometry / critical
+
+---
+
+CASE ID: EC15
+Sample: GTS28
+Scene: Đường hẹp hai chiều không có vạch giữa, xe ngược chiều ở mép trái, xe đỗ bên phải, tim đường chỉ ước lượng được.
+Observation: Annotator dùng mép nhựa hai bên làm biên của một polygon duy nhất — bao cả xe ngược chiều.
+Decision: LABEL / ESCALATE
+Expected: Xác định tim đường = trung điểm chiều ngang giữa hai mép nhựa ở phần gần xe chủ thể. Biên trái của `area/drivable` không vượt tim đường (sai số ±5% chiều rộng tổng). Không tạo `area/alternative`. Bỏ cả hai xe, vỉa hè và lối đỗ. Nếu không xác định được tim đường trong sai số, escalate và tạo issue trong CVAT.
+Rationale: Bao cả xe ngược chiều trong drivable area tạo đường đi đối đầu — lỗi critical; "bảo thủ" phải có định nghĩa định lượng để annotator không tự diễn giải.
+Common mistake: Dùng toàn bộ bề rộng nhựa đường làm `area/drivable`. Không escalate khi tim đường không xác định được.
+Diversity: ambiguity / occlusion / critical / escalation
+
+---
+
+CASE ID: EC16
+Sample: GTS11 (gold dispute)
+Scene: Gold decision d1 chấm correct=1 nhưng polygon thực tế bao cả hai bên đảo.
+Observation: Đây là trường hợp gold sai — decision đã khóa nhưng annotation thực tế không khớp với expected "làn bên phải đảo".
+Decision: ESCALATE — báo cáo riêng
+Expected: Giữ nguyên correct=1 theo bản khóa. Ghi chú "gold sai:" kèm bằng chứng (tọa độ polygon x≈54→1144 trong ảnh rộng 1360px). Tạo báo cáo riêng cho reviewer để cập nhật gold trong lần review tiếp.
+Rationale: Không tự sửa gold đã khóa — mọi thay đổi gold phải qua reviewer. Ghi bằng chứng rõ để không mất thông tin khi bàn giao.
+Common mistake: Tự đổi correct=0 khi phát hiện gold sai mà không ghi báo cáo. Bỏ qua trường hợp gold sai và không báo cáo.
+Diversity: conflict / escalation / gold_dispute

@@ -1,0 +1,16 @@
+sample_id,decision_id,expected,severity,kind,peer_evidence,correct,note
+GTS01,d1,label=area/drivable cho làn bên phải chứa tâm mép dưới,critical,decision,area/alternative | area/drivable,1,
+GTS01,d2,"IGNORE làn ngược chiều, vỉa hè và lề ngoài",critical,decision,area/alternative | area/drivable,1,
+GTS01,d3,geometry: biên trái theo tim đường và biên phải theo vạch mép hoặc bó vỉa đến nơi còn nhìn rõ,minor,geometry,area/alternative | area/drivable,1,
+GTS08,d1,label=area/drivable cho làn chứa tâm mép dưới,critical,decision,area/alternative | area/drivable,1,
+GTS08,d2,label=area/alternative cho làn cùng chiều kề bên còn nối qua vạch đứt,major,decision,area/alternative | area/drivable,1,phần bên phải kế bên đường drivable gán alternative.
+GTS08,d3,"IGNORE xe, dải phân cách và phần đường phía bên kia dải phân cách",critical,decision,area/alternative | area/drivable,1,
+GTS11,d1,label=area/drivable cho làn đi bên phải đảo,critical,decision,area/drivable,1,
+GTS11,d2,"IGNORE đảo, làn ngược chiều, xe đỗ, xe chạy và vỉa hè",critical,decision,area/drivable,0,polygon area/drivable vẽ bao rộng qua khu vực đảo — chưa IGNORE rõ ràng các vùng cần bỏ qua.
+GTS11,d3,geometry: tách hoặc khép polygon tại mép xe che khuất thay vì vẽ dưới xe,major,geometry,area/drivable,0,polygon vẽ liên tục không tách/khép tại mép xe — vi phạm geometry rule.
+GTS21,d1,label=area/drivable cho tuyến đi bên trái đảo,critical,decision,area/drivable,1,
+GTS21,d2,label=area/drivable bao gồm phần vạch qua đường trên tuyến đi,major,decision,area/drivable,1,polygon bao phần nối qua vạch đường (điểm ~638-680 x 665-743 y).
+GTS21,d3,"IGNORE đảo, vỉa hè và phần ngoài tuyến nối",critical,decision,area/drivable,1,chỉ có 1 polygon drivable — không label đảo hay vỉa hè.
+GTS28,d1,label=area/drivable bảo thủ cho nửa phải của đường,critical,decision,area/drivable,0,polygon bao gần full width (x≈154→1358) thay vì bảo thủ nửa phải — quá rộng.
+GTS28,d2,"IGNORE xe ngược chiều, xe đỗ, vỉa hè và lối đỗ",critical,decision,area/drivable,0,polygon bao cả vùng xe ngược chiều do vẽ quá rộng — không IGNORE đúng.
+GTS28,d3,label=area/alternative x0,major,decision,area/drivable,1,không có polygon area/alternative — đúng với expected x0.
