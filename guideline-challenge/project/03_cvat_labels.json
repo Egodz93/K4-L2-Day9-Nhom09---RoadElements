@@ -4,55 +4,13 @@
     "id": 1,
     "color": "#62c4b2",
     "type": "polygon",
-    "attributes": [
-      {
-        "id": 1,
-        "name": "truncated",
-        "input_type": "checkbox",
-        "mutable": false,
-        "values": [
-          "false"
-        ],
-        "default_value": "false"
-      },
-      {
-        "id": 2,
-        "name": "occluded",
-        "input_type": "checkbox",
-        "mutable": false,
-        "values": [
-          "false"
-        ],
-        "default_value": "false"
-      }
-    ]
+    "attributes": []
   },
   {
     "name": "area/drivable",
     "id": 2,
     "color": "#4a3d3c",
     "type": "polygon",
-    "attributes": [
-      {
-        "id": 1,
-        "name": "truncated",
-        "input_type": "checkbox",
-        "mutable": false,
-        "values": [
-          "false"
-        ],
-        "default_value": "false"
-      },
-      {
-        "id": 2,
-        "name": "occluded",
-        "input_type": "checkbox",
-        "mutable": false,
-        "values": [
-          "false"
-        ],
-        "default_value": "false"
-      }
-    ]
+    "attributes": []
   }
 ]
