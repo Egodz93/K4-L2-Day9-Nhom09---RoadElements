@@ -1,29 +1,57 @@
-# Ontology + CVAT setup
+# Hệ nhãn và thiết lập CVAT
 
-Bảng ontology là **source of truth** cho schema CVAT: `03_cvat_labels.json` phải khớp từng dòng ở đây. Thay mọi
-placeholder mới là xong (gate G2).
+Bảng dưới đây là nguồn chuẩn cho cấu hình CVAT. Tên nhãn, loại hình học, màu và thuộc tính phải khớp với
+`03_cvat_labels.json`.
 
-## Ontology table
+## Bảng hệ nhãn
 
-| Name | Geometry | Type (class / attribute) | Allowed values | Default | Mutable? | Rationale |
+| Tên | Hình học | Loại | Giá trị cho phép | Giá trị mặc định | Có thể thay đổi? | Lý do |
 |---|---|---|---|---|---|---|
-| TODO | TODO | TODO | TODO | TODO | TODO | TODO |
+| `area/alternative` | Đa giác (`polygon`) | Nhãn (`class`) | Không áp dụng. Nhãn không có thuộc tính | Không có | Không áp dụng. Đây là ảnh tĩnh | Vùng xe có thể đi tới hợp pháp bằng cách chuyển sang làn cùng chiều hoặc nhánh rẽ có kết nối nhìn thấy được, nhưng không phải làn hiện tại của xe chủ thể |
+| `area/drivable` | Đa giác (`polygon`) | Nhãn (`class`) | Không áp dụng. Nhãn không có thuộc tính | Không có | Không áp dụng. Đây là ảnh tĩnh | Làn hiện tại của xe chủ thể và phần nối hợp lệ của làn đó theo hướng di chuyển |
 
-## Class hay attribute
+Màu hiển thị trong CVAT:
 
-TODO — vì sao mỗi thứ là class hay attribute (xem README mục "2 · Viết guideline"). Default nào có thể gây bias khi
-annotator quên đổi?
+- `area/alternative`: `#62c4b2`.
+- `area/drivable`: `#4a3d3c`.
+
+## Nhãn hay thuộc tính
+
+`area/drivable` và `area/alternative` là hai nhãn riêng vì chúng biểu diễn hai loại vùng có ý nghĩa khác nhau đối
+với đường đi của xe. Mỗi vùng có một đa giác độc lập và được kiểm tra trực tiếp theo tên nhãn.
+
+Không dùng thuộc tính vì `03_cvat_labels.json` quy định `attributes: []` cho cả hai nhãn. Không có giá trị mặc định
+nên không phát sinh sai lệch do quên đổi thuộc tính. Tuy nhiên, CVAT có thể giữ lại nhãn vừa dùng. Người gán nhãn phải
+kiểm tra tên nhãn trước khi hoàn thành mỗi đa giác để tránh nhầm vùng đi chính với vùng đi thay thế.
+
+Không tạo thêm nhãn cho vùng không thể đi hoặc trường hợp chưa chắc chắn. Vùng không thể đi được để trống. Trường hợp
+chưa chắc chắn được ghi bằng chức năng tạo vấn đề trong CVAT và phải được giải quyết trước khi xuất kết quả cuối.
 
 ## CVAT
 
-- **Phiên bản CVAT** (`make cvat-status`): TODO
-- **Tên task calibration** (có version guideline, ví dụ `team07-calib-v1`): TODO
-- **Guide của task đã dán `02_guideline.md`?** TODO (có / chưa)
-- **Nhóm dùng Track hay Shape, vì sao:** TODO
+- **Phiên bản CVAT** (`make cvat-status`): `2.75.1`.
+- **Tên task calibration:** `nhom09-drivable-calib-v1` (chưa tạo trên CVAT).
+- **Guide của task đã dán `02_guideline.md`?** Chưa, vì task calibration chưa được tạo.
+- **Nhóm dùng Track hay Shape, vì sao:** dùng **Shape** vì dữ liệu gồm ảnh tĩnh và hai nhãn đều có hình học đa giác.
+  Không dùng Track vì không có chuỗi khung hình để theo dõi.
 
-## Setup test
+### Các bước thiết lập cần khớp
 
-Một thành viên **chưa tham gia setup** mở task và trả lời: label gì, dùng tool nào, gán attribute nào, khi nào
-escalate. Ghi lại ai test và chỗ họ vấp:
+1. Tạo task `nhom09-drivable-calib-v1`.
+2. Nhập nguyên nội dung `03_cvat_labels.json` vào phần cấu hình nhãn dạng Raw.
+3. Kiểm tra CVAT chỉ hiển thị `area/alternative` và `area/drivable`, cả hai dùng đa giác và không có thuộc tính.
+4. Dán nguyên nội dung `02_guideline.md` vào phần Guide.
+5. Tải các ảnh thuộc nhóm `calibration` lên task.
+6. Mở một ảnh, vẽ thử mỗi nhãn một đa giác và kiểm tra tệp xuất giữ đúng tên nhãn.
 
-TODO
+## Kiểm thử thiết lập
+
+Khi CVAT hoạt động, một thành viên không tham gia thiết lập phải mở task và trả lời được:
+
+- Có hai nhãn là `area/drivable` và `area/alternative`.
+- Dùng công cụ đa giác ở chế độ Shape.
+- Không có thuộc tính cần gán.
+- Khi chưa chắc chắn, không tạo nhãn mới. Người gán nhãn tạo vấn đề trong CVAT và chuyển cho người phụ trách xử lý.
+
+Người kiểm thử cần ghi lại tên, thời điểm kiểm thử và chỗ bị vấp. Nếu không nhìn thấy đủ hai nhãn, thấy thuộc tính
+không có trong JSON, không mở được Guide hoặc không xuất đúng tên nhãn, task chưa đạt điều kiện để hiệu chỉnh.
