@@ -1,45 +1,47 @@
 # QA plan + quality gates
 
-Không được viết "reviewer kiểm tra lại". Phải có sampling, metric, threshold và action khi fail. Thay mọi placeholder
-mới là xong (gate G6).
-
 ## Flow
 
-Guideline → Calibration → Production → Self-QC → Review → Rework → Quality Gate. Ghi cụ thể cho project của nhóm:
+Guideline → Calibration → Production → Self-QC → Review → Rework → Quality Gate.
 
-- **Ai review, review bao nhiêu:** TODO
-- **Chọn sample theo rule nào** (random, theo tag rủi ro, theo annotator mới…): TODO
-- **Issue được ghi ở đâu, đóng thế nào:** TODO
-- **Khi phát hiện guideline gap thì update và version ra sao:** TODO
+- **Người review:** `[TỰ ĐIỀN]`; review 100% ảnh calibration và ảnh gắn tag `critical`, cộng 20% ảnh còn lại
+  (tối thiểu 5 ảnh nếu đủ dữ liệu).
+- **Chọn mẫu:** lấy toàn bộ `critical`, `ambiguity`, `occlusion`; phần còn lại chọn ngẫu nhiên và có mẫu của mỗi
+  annotator.
+- **Theo dõi issue:** ghi issue trong CVAT với `mã ảnh | vị trí | lỗi | rule`; chỉ đóng sau khi sửa và reviewer xác nhận.
+- **Guideline gap:** ghi bằng chứng vào revision log, sửa rule, tăng version ở đúng mốc calibration hoặc handoff và
+  rà lại các ảnh chịu ảnh hưởng.
 
 ## Defect severity
 
-Nhóm được đổi mapping nếu downstream contract khác, nhưng phải giải thích và chốt trước khi QA.
-
-| Severity | Định nghĩa cho project này | Ví dụ | Action mặc định |
+| Severity | Định nghĩa | Ví dụ | Action |
 |---|---|---|---|
-| Critical | TODO | TODO | TODO |
-| Major | TODO | TODO | TODO |
-| Minor | TODO | TODO | TODO |
-| Question | TODO | TODO | TODO |
+| Critical | Tạo đường đi nguy hiểm hoặc sai luật | Gán làn ngược chiều, đảo, vỉa hè hay đường cấm là vùng đi được | Dừng gate, sửa lỗi và review 100% ảnh cùng loại |
+| Major | Sai class, thiếu vùng hợp lệ hoặc sai biên làm đổi cấu trúc đường đi | Đổi `drivable` thành `alternative`, nối qua xe, bỏ một nhánh hợp lệ | Rework ảnh và tăng gấp đôi mẫu review |
+| Minor | Sai hình học nhỏ nhưng không đổi ý nghĩa | Lệch biên rõ không quá 5 px, thừa điểm trên đoạn thẳng | Sửa trước khi đóng batch |
+| Question | Chưa đủ bằng chứng để quyết định | Không rõ lề hay làn, biển và vạch mâu thuẫn | Tạo issue và chuyển người phụ trách guideline |
 
 ## Metrics
 
-| Metric | Cách tính | Vì sao phù hợp với bài toán |
+| Metric | Cách tính | Lý do |
 |---|---|---|
-| TODO | TODO | TODO |
+| Decision accuracy | Số decision đúng / tổng decision được review | Đo trực tiếp class, inclusion và exclusion |
+| Critical defect rate | Số ảnh có lỗi critical / số ảnh được review | Bám hậu quả an toàn downstream |
+| Geometry pass rate | Số polygon đạt biên 5 px, không tự cắt và không phủ vùng loại trừ / tổng polygon kiểm | Đo chất lượng đa giác thay vì cảm giác |
 
-Metric high-risk tách riêng (ví dụ critical defect escape rate): TODO
+Metric high-risk: `critical defect rate` phải bằng 0.
 
 ## Quality gate
 
-Threshold là đề xuất của nhóm, không phải chuẩn ngành. Giải thích trade-off cost/risk.
-
 ```text
 PASS if:
-  TODO
-REWORK if: TODO
-REJECT / ESCALATE if: TODO
+  critical defect rate = 0
+  decision accuracy >= 95%
+  geometry pass rate >= 90%
+  mọi issue đã đóng
+REWORK if: không có lỗi critical nhưng một metric dưới ngưỡng
+REJECT / ESCALATE if: có lỗi critical hoặc cùng guideline gap lặp lại từ 2 ảnh
 ```
 
-Trade-off: TODO
+Trade-off: review toàn bộ ảnh rủi ro để bảo vệ an toàn, nhưng chỉ lấy 20% ảnh thường để giữ chi phí phù hợp bộ dữ
+liệu nhỏ. Ngưỡng geometry thấp hơn decision accuracy vì biên xa có thể mờ mà không làm đổi đường đi.

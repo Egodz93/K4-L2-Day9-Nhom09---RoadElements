@@ -1,1 +1,16 @@
 sample_id,split,tags,reason
+GTS04,example,normal,Cao tốc nhiều làn để minh họa làn hiện tại và làn cùng chiều thay thế
+GTS07,example,edge;conflict,Vạch vàng tạm và khu vực công trường mâu thuẫn với vạch cũ
+GTS17,example,negative;edge,Lối vào có biển cấm và khu đỗ xe kiểm tra quy tắc loại trừ
+GTS24,example,edge;ambiguity,Đường ray nằm trên mặt đường kiểm tra phân loại theo chức năng
+GTS02,calibration,edge;ambiguity;conflict,Nút giao bị xe che và biển hướng bắt buộc ở hai phía
+GTS05,calibration,edge;occlusion,Góc phố bị tòa nhà và xe che khuất phần nối
+GTS20,calibration,edge;ambiguity;occlusion,Nút giao có đảo và xe che đường biên
+GTS22,calibration,edge;low_visibility,Chênh sáng mạnh dưới cầu làm mất biên xa
+GTS25,calibration,edge;conflict,Chỗ nhập tách làn có vùng gạch chéo và nhiều nhánh
+GTS26,calibration,edge;critical;ambiguity;low_visibility;occlusion,Đường hai chiều không vạch bị chói và có xe ngược chiều
+GTS01,blind,normal,Đường hai chiều có tim đường và mép đường rõ
+GTS08,blind,edge;low_visibility;occlusion,Cao tốc trong bóng cầu có xe che một phần làn
+GTS11,blind,edge;critical;occlusion,Đảo dẫn hướng cùng xe chạy và xe đỗ sát làn
+GTS21,blind,edge;critical;conflict,Đảo bắt buộc đi bên trái kết hợp vạch qua đường
+GTS28,blind,edge;critical;ambiguity;occlusion,Đường hẹp không vạch có xe ngược chiều và xe đỗ

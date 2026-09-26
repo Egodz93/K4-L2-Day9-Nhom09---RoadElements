@@ -1,8 +1,8 @@
-CVAT task reference — thay mọi placeholder mới là xong.
+CVAT task reference
 
-CVAT version: TODO
-Task calibration (tên, id): TODO
-Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: TODO
-File export đã nộp (đường dẫn trong repo): TODO
-Guideline version dán trong Guide của task: TODO
-Ghi chú cho người tiếp nhận: TODO
+CVAT version: 2.75.1
+Task calibration (tên, id): nhom09-drivable-calib-v1; chưa tạo nên chưa có id
+Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: Chưa có; guideline hiện ở v1 và chưa calibration
+File export đã nộp (đường dẫn trong repo): Chưa có; chưa chạy task calibration
+Guideline version dán trong Guide của task: v1 sau khi task được tạo
+Ghi chú cho người tiếp nhận: Dùng Shape + Polygon; chỉ có area/drivable và area/alternative; không có thuộc tính

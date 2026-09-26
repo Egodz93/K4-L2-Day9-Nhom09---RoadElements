@@ -1,31 +1,31 @@
 # Problem statement + downstream contract
 
-Tối đa nửa trang, viết **trước khi mở CVAT**. Đây là bằng chứng của gate G1 (topic lock). Thay mọi placeholder
-mới là xong.
-
 ## Bài toán
 
-TODO — một câu: road element nào, trong tình huống nào, khó ở đâu. "Label traffic signs" là quá rộng; "hierarchical
-sign taxonomy cho biển nhỏ/xa/bị che" là đủ cụ thể.
+Gán đa giác cho phần mặt đường nhìn thấy mà xe chủ thể có thể đi hợp lệ, đồng thời phân biệt làn hiện tại với vùng có
+thể chuyển sang; khó nhất ở nút giao, đường không có vạch, vùng che khuất và vạch tạm.
 
 ## Downstream contract
 
-1. **Downstream task / model / user là ai?** TODO
-2. **Output annotation nào thực sự cần?** (geometry, class, attribute nào) TODO
-3. **Failure nào gây hậu quả lớn nhất?** (đây sẽ là decision `critical` trong gold) TODO
-4. **Khi ambiguity không resolve được, ai / ở đâu là escalation path?** TODO
+1. **Người dùng:** mô hình nhận biết vùng chạy xe và hệ thống lập kế hoạch đường đi.
+2. **Đầu ra:** đa giác `area/drivable` và `area/alternative`; không có thuộc tính.
+3. **Lỗi nghiêm trọng nhất:** gán làn ngược chiều, vỉa hè, đảo, vật cản hoặc đường cấm thành vùng đi được.
+4. **Escalation:** tạo issue trong CVAT và chuyển cho người phụ trách guideline; không tự thêm nhãn.
 
 ## Scope
 
-- **Trong scope (bắt buộc label):** TODO
-- **Ngoài scope (ignore):** TODO
-- **Geometry tolerance:** TODO (ví dụ "box ôm phần vỏ đèn nhìn thấy, lệch ≤ 2 px mỗi cạnh là đạt")
+- **Trong scope:** làn hiện tại, phần nối hợp lệ và làn cùng chiều/làn rẽ có thể tiếp cận hợp pháp.
+- **Ngoài scope:** làn ngược chiều, vỉa hè, lề dừng, bãi đỗ, đảo, dải phân cách, vùng cấm, vật cản và phần bị che.
+- **Geometry tolerance:** tại biên rõ, sai lệch tối đa 5 px; không được vượt qua ranh giới vật lý. Biên mờ phải vẽ
+  bảo thủ hoặc chuyển xử lý.
 
 ## Output chấm được
 
-TODO — loại decision nào sẽ có trong blind test: LABEL / IGNORE / UNKNOWN / ESCALATE, class, attribute, geometry.
-Mỗi loại phải nhìn thấy được trong file export CVAT, nếu không thì không chấm được.
+`LABEL` được thể hiện bằng đa giác và tên nhãn trong export. `IGNORE` được thể hiện bằng việc không có đa giác tại
+vùng loại trừ và được đối chiếu với gold. `ESCALATE` được ghi bằng issue trong CVAT và phải được giải quyết trước
+export cuối; không tạo class thứ ba.
 
 ## Dữ liệu và giới hạn
 
-TODO — nguồn ảnh, số ảnh dự kiến dùng, giới hạn đã biết (ví dụ LISA trong repo chỉ có một clip 30 frame liên tiếp).
+Nguồn `gtsdb` có 28 ảnh PNG tĩnh, kích thước 1360×800. Sample pack dùng 4 ảnh example, 6 ảnh calibration và 5 ảnh
+blind. Dữ liệu chủ yếu ban ngày tại Đức, không có chuỗi thời gian hay bản đồ, nên chỉ dùng bằng chứng trong từng ảnh.

@@ -1,1 +1,16 @@
 sample_id,decision_id,expected,severity,rationale
+GTS01,d1,label=area/drivable cho làn bên phải chứa tâm mép dưới,critical,Làn hiện tại là đường đi mặc định của xe chủ thể
+GTS01,d2,"IGNORE làn ngược chiều, vỉa hè và lề ngoài",critical,Các vùng này không phải đường đi hợp lệ
+GTS01,d3,geometry: biên trái theo tim đường và biên phải theo vạch mép hoặc bó vỉa đến nơi còn nhìn rõ,minor,Đường biên vật lý và vạch sơn có độ tin cậy cao
+GTS08,d1,label=area/drivable cho làn chứa tâm mép dưới,critical,Không đổi class chỉ vì làn nằm trong bóng cầu
+GTS08,d2,label=area/alternative cho làn cùng chiều kề bên còn nối qua vạch đứt,major,Làn cùng chiều có kết nối nhìn thấy là lựa chọn hợp pháp
+GTS08,d3,"IGNORE xe, dải phân cách và phần đường phía bên kia dải phân cách",critical,Vật cản và luồng đối diện không thuộc vùng đi được
+GTS11,d1,label=area/drivable cho làn đi bên phải đảo,critical,Biển trên đảo xác định phía lưu thông của xe chủ thể
+GTS11,d2,"IGNORE đảo, làn ngược chiều, xe đỗ, xe chạy và vỉa hè",critical,Không vẽ xuyên ranh giới vật lý hoặc vật cản
+GTS11,d3,geometry: tách hoặc khép polygon tại mép xe che khuất thay vì vẽ dưới xe,major,Chỉ gán phần mặt đường nhìn thấy
+GTS21,d1,label=area/drivable cho tuyến đi bên trái đảo,critical,Biển bắt buộc và hình học đảo xác định đường đi
+GTS21,d2,label=area/drivable bao gồm phần vạch qua đường trên tuyến đi,major,Vạch qua đường điều khiển ưu tiên nhưng không phải vật cản
+GTS21,d3,"IGNORE đảo, vỉa hè và phần ngoài tuyến nối",critical,Đảo và vỉa hè là vùng loại trừ
+GTS28,d1,label=area/drivable bảo thủ cho nửa phải của đường,critical,Đây là đường hai chiều không có vạch giữa
+GTS28,d2,"IGNORE xe ngược chiều, xe đỗ, vỉa hè và lối đỗ",critical,Vật cản và vùng ngoài lòng đường không được gán nhãn
+GTS28,d3,label=area/alternative x0,major,Không có bằng chứng về làn cùng chiều kế bên hoặc nhánh hợp lệ
