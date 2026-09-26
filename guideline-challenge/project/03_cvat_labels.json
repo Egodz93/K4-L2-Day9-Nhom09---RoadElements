@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "name": "area/alternative",
+    "id": 0,
+    "color": "#62c4b2",
+    "type": "polygon",
+    "attributes": []
+  },
+  {
+    "name": "area/drivable",
+    "id": 1,
+    "color": "#4a3d3c",
+    "type": "polygon",
+    "attributes": []
+  }
+]
